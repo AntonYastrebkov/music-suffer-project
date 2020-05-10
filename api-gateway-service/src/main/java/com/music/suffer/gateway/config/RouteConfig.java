@@ -37,9 +37,13 @@ public class RouteConfig {
                     .filters(f -> f.rewritePath("/api/user/(?<segment>.*)", "/${segment}"))
                     .uri("lb://user-service"))
                 .route("library-service", r -> r.path("/api/library/**")
-                    .filters(f -> f.rewritePath("/api/library/(?<segment>.*)", "/${segment}"))
-                    .uri("lb://library-service")
-                    .filter(securityFilter))
+                        .filters(f -> f.rewritePath("/api/library/(?<segment>.*)", "/${segment}"))
+                        .uri("lb://library-service")
+                        .filter(securityFilter))
+                .route("admin-service", r -> r.path("/api/admin/**")
+                        .filters(f -> f.rewritePath("/api/admin/(?<segment>.*)", "/${segment}"))
+                        .uri("lb://admin-service")
+                        .filter(securityFilter))
                 .build();
     }
 }

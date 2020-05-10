@@ -32,7 +32,8 @@ public class JwtTokenGenerator implements TokenGenerator {
         claims.put("email", user.getEmail());
         claims.put("firstName", user.getFirstName());
         claims.put("lastName", user.getLastName());
-        claims.put("role", user.getAuthorities());
+        claims.put("roles", user.getRoles());
+        claims.put("isEnabled", user.isEnabled());
 
         return authenticationTokenRepository.save(new AuthenticationToken()
                 .setAccessToken(generateJwt(claims, jwtProperties.getAccessExpiration()))
