@@ -7,7 +7,7 @@ import lombok.experimental.Accessors;
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
-public class TokenResponse {
+public class AuthenticationResponse {
     private String accessToken;
     private String refreshToken;
     private String tokenType;

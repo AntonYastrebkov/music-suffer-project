@@ -28,7 +28,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
             Claims jwtClaims = Jwts.parser().setSigningKey("secret").parseClaimsJws(jwt).getBody();
             List<String> roles = jwtClaims.get("role", List.class);
             TokenData tokenData = new TokenData()
-                    .setId(Long.valueOf(jwtClaims.getId()))
+                    .setId(Long.valueOf(jwtClaims.get("sub", String.class)))
                     .setFirstName(jwtClaims.get("firstName", String.class))
                     .setLastName(jwtClaims.get("lastName", String.class))
                     .setEmail(jwtClaims.get("email", String.class))

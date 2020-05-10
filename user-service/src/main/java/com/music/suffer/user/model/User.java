@@ -1,8 +1,11 @@
 package com.music.suffer.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,9 +17,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Collection;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
+@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 @Data
 @NoArgsConstructor
 public class User implements UserDetails {
@@ -29,32 +34,40 @@ public class User implements UserDetails {
     private String firstName;
     private String lastName;
     private boolean enabled;
+    @Type(type = "jsonb")
+    private Set<String> roles;
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Set.of(new SimpleGrantedAuthority("USER"));
+        return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
     }
 
+    @JsonIgnore
     @Override
     public String getPassword() {
         return this.password;
     }
 
+    @JsonIgnore
     @Override
     public String getUsername() {
         return this.email;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;

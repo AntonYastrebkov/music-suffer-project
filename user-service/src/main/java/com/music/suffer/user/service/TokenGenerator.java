@@ -1,8 +1,8 @@
 package com.music.suffer.user.service;
 
-import com.music.suffer.user.model.LoginRequest;
-import com.music.suffer.user.model.TokenResponse;
+import com.music.suffer.user.model.AuthenticationToken;
+import org.springframework.security.core.Authentication;
 
 public interface TokenGenerator {
-    TokenResponse generate(LoginRequest request);
+    AuthenticationToken generate(Authentication authentication);
 }

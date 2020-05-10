@@ -1,5 +1,6 @@
 package com.music.suffer.user.service;
 
+import com.music.suffer.user.config.JwtProperties;
 import com.music.suffer.user.model.User;
 import com.music.suffer.user.repository.UserRepository;
 import io.jsonwebtoken.Claims;
@@ -11,7 +12,8 @@ import org.springframework.util.StringUtils;
 @Service
 @RequiredArgsConstructor
 public class JwtTokenParser implements TokenParser {
-    private final String BEARER_PREFIX = "Bearer ";
+    private final static String BEARER_PREFIX = "Bearer ";
+    private final JwtProperties jwtProperties;
     private final UserRepository userRepository;
 
     @Override
@@ -22,12 +24,11 @@ public class JwtTokenParser implements TokenParser {
 
         try {
             Claims claims = Jwts.parser()
-                    .setSigningKey("secret")
+                    .setSigningKey(jwtProperties.getJwtSecretKey())
                     .parseClaimsJws(token.substring(BEARER_PREFIX.length()))
                     .getBody();
-            Long userId = Long.valueOf(claims.getId());
-            return userRepository.findById(userId).orElseThrow(() ->
-                    new RuntimeException("Invalid token: no user found"));
+            Long userId = Long.valueOf(claims.get("sub", String.class));
+            return userRepository.findById(userId).orElse(null);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
