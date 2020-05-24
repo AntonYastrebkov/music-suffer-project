@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
-import java.util.List;
 
 @Entity
 @Data
@@ -18,7 +17,7 @@ public class Artist {
     @Id
     @SequenceGenerator(name = "artist_id_generator", sequenceName = "artist_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "artist_id_generator")
-    private long id;
+    private Long id;
     private String name;
     @Lob
     private String biography;

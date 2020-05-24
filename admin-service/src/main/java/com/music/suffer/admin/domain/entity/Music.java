@@ -22,7 +22,7 @@ public class Music {
     @Id
     @SequenceGenerator(name = "music_id_generator", sequenceName = "music_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "music_id_generator")
-    private long id;
+    private Long id;
     private String name;
     private int position;
     private int year;
@@ -35,5 +35,5 @@ public class Music {
     @ManyToOne(targetEntity = Artist.class)
     @JoinColumn(name = "artist_id")
     private Artist artist;
-    private long listening;
+    private int listening;
 }
