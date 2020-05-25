@@ -1,11 +1,14 @@
 package com.music.suffer.library.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +29,9 @@ public class Album {
     private String name;
     private String coverPath;
     private int year;
-    private double averageScore;
+    private Double averageScore;
+    private Integer votes;
+    @JsonIgnore
     @OneToMany(mappedBy = "album")
     private List<Music> compositions;
     @Enumerated(EnumType.STRING)
@@ -34,4 +39,7 @@ public class Album {
     @ManyToOne(targetEntity = Artist.class)
     @JoinColumn(name = "artist_id")
     private Artist artist;
+    @JsonIgnore
+    @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
+    private List<Comment> comments;
 }
