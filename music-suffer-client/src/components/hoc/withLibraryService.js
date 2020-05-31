@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LibraryServiceConsumer } from '../library-service-context';
+import { LibraryServiceConsumer } from '../context';
 
 const withLibraryService = () => (Wrapped) => {
   return (props) => {
