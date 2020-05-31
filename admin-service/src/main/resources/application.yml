@@ -1,6 +1,6 @@
 spring:
   application:
-    name: user-service
+    name: admin-service
 
   datasource:
     url: jdbc:postgresql://localhost:5432/music_db
@@ -11,4 +11,21 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  liquibase:
+    changelog: classpath:/db/changelog.yml
+
+server:
+  port: 8083
+jwt:
+  jwtSecretKey: secretKey
+upload:
+  path: /C:/Users/Munchausen/IdeaProjects/MusicSufferService/uploads
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka

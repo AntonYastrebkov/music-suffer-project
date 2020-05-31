@@ -19,8 +19,8 @@ spring:
     changelog: classpath:/db/changelog.yml
 
 jwt:
-  accessExpiration: 3600000
-  refreshExpiration: 86400000
+  accessExpiration: 3600
+  refreshExpiration: 86400
   jwtSecretKey: secretKey
 
 server:
