@@ -11,12 +11,17 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  liquibase:
+    changelog: classpath:/db/changelog.yml
 
 jwt:
   accessExpiration: 3600000
   refreshExpiration: 86400000
-  jwtSecret: secretKey
+  jwtSecretKey: secretKey
 
 server:
   port: 8081
