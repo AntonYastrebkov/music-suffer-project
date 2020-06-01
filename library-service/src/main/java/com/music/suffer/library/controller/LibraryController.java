@@ -43,11 +43,6 @@ public class LibraryController {
         return libraryService.getArtistList(filter, pageable);
     }
 
-    @GetMapping("/artist/{id}")
-    public Artist getArtist(@PathVariable Long id) {
-        return libraryService.getArtist(id);
-    }
-
     @GetMapping("/genre")
     public List<MusicGenre> getGenres() {
         return Arrays.asList(MusicGenre.values());

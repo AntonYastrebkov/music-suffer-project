@@ -40,6 +40,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Artist saveArtist(ArtistDTO artistDTO, MultipartFile image) {
         Artist artistToSave = modelMapper.map(artistDTO, Artist.class);
+        artistToSave.setIsDeleted(false);
         if (!image.isEmpty()) {
             artistToSave.setImagePath(saveImage(image));
         }
@@ -68,6 +69,7 @@ public class AdminServiceImpl implements AdminService {
     public List<MusicDataResponse> saveAlbum(AlbumDTO albumDTO, MultipartFile image) {
 
         Album albumToSave = modelMapper.map(albumDTO, Album.class);
+        albumToSave.setIsDeleted(false);
 
         Artist artist = artistRepository.findById(albumDTO.getArtistId()).orElseThrow(() ->
                 new EntityNotFoundException("Artist with id " + albumDTO.getArtistId() + " not found."));

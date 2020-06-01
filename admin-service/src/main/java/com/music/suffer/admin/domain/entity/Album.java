@@ -28,9 +28,9 @@ public class Album {
     private Long id;
     private String name;
     private String coverPath;
-    private int year;
-    private int votes;
-    private double averageScore;
+    private Integer year;
+    private Integer votes;
+    private Double averageScore;
     @OneToMany(mappedBy = "album")
     private List<Music> compositions;
     @Enumerated(EnumType.STRING)
@@ -39,6 +39,7 @@ public class Album {
     @JoinColumn(name = "artist_id")
     @JsonIgnore
     private Artist artist;
+    private Boolean isDeleted;
 
     @JsonProperty(value = "artistId", access = JsonProperty.Access.READ_ONLY)
     public Long getArtistId() {

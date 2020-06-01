@@ -33,7 +33,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             authentication.setJwt(bearerToken.substring(BEARER_PREFIX.length()));
 
             Authentication authenticate = authenticationProvider.authenticate(authentication);
-            System.out.println(authenticate);
             SecurityContextHolder.getContext().setAuthentication(
                     authenticate);
         } else {

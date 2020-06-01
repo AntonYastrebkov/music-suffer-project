@@ -22,4 +22,5 @@ public class Artist {
     private boolean isGroup;
     private String country;
     private String imagePath;
+    private Boolean isDeleted;
 }
