@@ -8,19 +8,27 @@ import ErrorBoundry from './components/error-boundry';
 import store from './store';
 import LibraryService from './services/LibraryService';
 import AdminService from './services/AdminService';
-import { LibraryServiceProvider, AdminServiceProvider } from './components/context';
+import AuthService from './services/AuthService';
+import { 
+  LibraryServiceProvider, 
+  AdminServiceProvider, 
+  AuthServiceProvider 
+} from './components/context';
 
 const libraryService = new LibraryService();
 const adminService = new AdminService();
+const authService = new AuthService();
 
 ReactDOM.render(
   <Provider store={store}>
     <ErrorBoundry>
       <LibraryServiceProvider value={libraryService}>
         <AdminServiceProvider value={adminService}>
-          <Router>
-            <App />
-          </Router>
+          <AuthServiceProvider value={authService}>
+            <Router>
+              <App />
+            </Router>
+          </AuthServiceProvider>
         </AdminServiceProvider>
       </LibraryServiceProvider>
     </ErrorBoundry>

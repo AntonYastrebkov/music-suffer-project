@@ -8,8 +8,7 @@ const withLibraryService = () => (Wrapped) => {
       <LibraryServiceConsumer>
         {
           (libraryService) => {
-            return (<Wrapped {...props} 
-                libraryService={ libraryService }/>);
+            return (<Wrapped {...props} libraryService={ libraryService }/>);
           }
         }
       </LibraryServiceConsumer>

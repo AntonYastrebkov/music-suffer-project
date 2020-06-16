@@ -1,21 +1,10 @@
 
-const initialState = {
-  user: null,
-  albums: [],
-  artists: []
-};
+import updatePagingStore from './paging-data-reducer';
 
 const reducer = (state, action) => {
-  if (state === undefined) {
-    return initialState;
-  }
-
-  switch(action.type) {
-    case 'TEST':
-      return state;
-    default:
-      return state;
-  }
+  return {
+    pagingData: updatePagingStore(state, action)
+  };
 }
 
 export default reducer;
