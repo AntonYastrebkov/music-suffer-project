@@ -13,12 +13,13 @@ CREATE TABLE artist (
     biography   TEXT,
     is_group    BOOLEAN DEFAULT FALSE,
     country     TEXT NOT NULL,
-    image_path  TEXT
+    image_path  TEXT,
+    is_deleted  BOOLEAN NOT NULL DEFAULT FALSE
 );
 ALTER TABLE artist ADD CONSTRAINT artist_pkey PRIMARY KEY (id);
 CREATE SEQUENCE artist_sequence START WITH 1;
-INSERT INTO artist (id, name, country)
-    VALUES (0, 'default', 'Narnia');
+INSERT INTO artist (id, name, country, is_deleted)
+    VALUES (0, 'default', 'Narnia', true);
 
 CREATE TABLE album (
     id              BIGINT NOT NULL,
@@ -28,23 +29,24 @@ CREATE TABLE album (
     votes           INTEGER,
     average_score   FLOAT,
     genre           TEXT NOT NULL,
-    artist_id       BIGINT NOT NULL
+    artist_id       BIGINT NOT NULL,
+    is_deleted      BOOLEAN NOT NULL DEFAULT FALSE
 );
 ALTER TABLE album ADD CONSTRAINT album_pkey PRIMARY KEY (id);
 ALTER TABLE album ADD CONSTRAINT fk_artist_id FOREIGN KEY (artist_id) REFERENCES artist(id) ON DELETE CASCADE;
 CREATE SEQUENCE album_sequence START WITH 1;
-INSERT INTO album (id, name, year, genre, artist_id)
-    VALUES (0, 'default', 0, 'OTHER', 0);
+INSERT INTO album (id, name, year, genre, artist_id, is_deleted)
+    VALUES (0, 'default', 0, 'OTHER', 0, true);
 
 CREATE TABLE music (
-    id BIGINT NOT NULL,
-    name TEXT NOT NULL,
-    position INTEGER,
-    year INTEGER,
-    genre TEXT,
-    album_id BIGINT NOT NULL,
-    artist_id       BIGINT NOT NULL,
-    listening INTEGER
+    id          BIGINT NOT NULL,
+    name        TEXT NOT NULL,
+    position    INTEGER,
+    year        INTEGER,
+    genre       TEXT,
+    album_id    BIGINT NOT NULL,
+    artist_id   BIGINT NOT NULL,
+    listening   INTEGER
 );
 ALTER TABLE music ADD CONSTRAINT music_pkey PRIMARY KEY (id);
 ALTER TABLE music ADD CONSTRAINT fk_artist_id FOREIGN KEY (artist_id) REFERENCES artist(id) ON DELETE CASCADE;

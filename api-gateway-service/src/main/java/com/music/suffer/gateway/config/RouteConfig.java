@@ -1,18 +1,11 @@
 package com.music.suffer.gateway.config;
 
 import com.music.suffer.gateway.filter.OAuthSecurityFilter;
-import feign.codec.Decoder;
-import feign.codec.Encoder;
-import feign.form.spring.SpringFormEncoder;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
-import org.springframework.cloud.openfeign.support.SpringDecoder;
-import org.springframework.cloud.openfeign.support.SpringEncoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -30,22 +23,16 @@ import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
-@ConfigurationProperties
+@ConfigurationProperties(prefix = "api")
 @Setter
 public class RouteConfig {
     private final OAuthSecurityFilter securityFilter;
-    private final ObjectFactory<HttpMessageConverters> messageConverters = HttpMessageConverters::new;
     private List<String> allowedOrigins;
-
-    @Bean
-    Encoder feignFormEncoder() {
-        return new SpringFormEncoder(new SpringEncoder(messageConverters));
-    }
-
-    @Bean
-    Decoder feignFormDecoder() {
-        return new SpringDecoder(messageConverters);
-    }
+    private String userHost;
+    private String adminHost;
+    private String libraryHost;
+    private String streamingHost;
+    private String imageHost;
 
     @Bean
     public WebFilter corsFilter() {
@@ -75,15 +62,21 @@ public class RouteConfig {
         return builder.routes()
                 .route("user-api", r -> r.path("/api/user/**")
                     .filters(f -> f.rewritePath("/api/user/(?<segment>.*)", "/${segment}"))
-                    .uri("lb://user-service"))
+                    .uri(userHost))
                 .route("library-service", r -> r.path("/api/library/**")
                         .filters(f -> f.rewritePath("/api/library/(?<segment>.*)", "/${segment}"))
-                        .uri("lb://library-service")
-                        .filter(securityFilter))
+                        .uri(libraryHost))
+//                        .filter(securityFilter))
                 .route("admin-service", r -> r.path("/api/admin/**")
                         .filters(f -> f.rewritePath("/api/admin/(?<segment>.*)", "/${segment}"))
-                        .uri("lb://admin-service")
-                        .filter(securityFilter))
+                        .uri(adminHost))
+//                        .filter(securityFilter))
+                .route("streaming-service", r -> r.path("/api/streaming/**")
+                        .filters(f -> f.rewritePath("/api/streaming/(?<segment>.*)", "/${segment}"))
+                        .uri(streamingHost))
+//                        .filter(securityFilter))
+                .route("image-service", r -> r.path("/img/**")
+                        .uri(imageHost))
                 .build();
     }
 }

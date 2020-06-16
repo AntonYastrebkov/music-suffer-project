@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: image-service
+
+server:
+  port: 8085
+
+imagePath: /C:/Users/Munchausen/IdeaProjects/MusicSufferService/images

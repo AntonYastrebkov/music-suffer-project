@@ -5,6 +5,7 @@ import com.music.suffer.admin.domain.dto.ArtistDTO;
 import com.music.suffer.admin.domain.dto.MusicDTO;
 import com.music.suffer.admin.domain.entity.Artist;
 import com.music.suffer.admin.domain.model.MusicDataResponse;
+import com.music.suffer.admin.domain.model.MusicGenre;
 import com.music.suffer.admin.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -54,5 +56,10 @@ public class CreateController {
             @RequestBody @Valid MusicDTO musicDTO
     ) {
         return adminService.saveComposition(0L, musicDTO);
+    }
+
+    @GetMapping("/genres")
+    public List<MusicGenre> getGenres() {
+        return Arrays.asList(MusicGenre.values());
     }
 }
