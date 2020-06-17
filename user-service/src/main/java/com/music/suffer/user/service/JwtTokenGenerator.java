@@ -34,12 +34,14 @@ public class JwtTokenGenerator implements TokenGenerator {
         claims.put("lastName", user.getLastName());
         claims.put("roles", user.getRoles());
         claims.put("isEnabled", user.isEnabled());
+        Timestamp expiration = Timestamp.from(
+                Instant.now().plusSeconds(jwtProperties.getAccessExpiration()));
 
         return authenticationTokenRepository.save(new AuthenticationToken()
                 .setAccessToken(generateJwt(claims, jwtProperties.getAccessExpiration()))
                 .setRefreshToken(generateJwt(claims, jwtProperties.getRefreshExpiration()))
                 .setTokenType(TOKEN_TYPE)
-                .setExpiration(new Timestamp(jwtProperties.getAccessExpiration()))
+                .setExpiration(expiration)
                 .setUser(user));
     }
 
