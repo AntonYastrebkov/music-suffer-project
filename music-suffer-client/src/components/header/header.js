@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import './header.css';
 
-import { withAuthService } from '../hoc';
+import { compose, withAuthService } from '../hoc';
 
 const Header = ({ history, authService }) => {
   const adminLinks = authService.isAdmin() ? (
@@ -50,4 +50,7 @@ const Header = ({ history, authService }) => {
   );
 };
 
-export default withAuthService()(Header);
+export default compose(
+  withRouter,
+  withAuthService()
+)(Header);

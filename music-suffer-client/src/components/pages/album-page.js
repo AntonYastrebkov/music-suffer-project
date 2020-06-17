@@ -7,15 +7,16 @@ import { fetchAlbums } from '../../actions';
 import { 
   compose, 
   withPagingData,
-  withLibraryService 
+  withLibraryService,
+  withAuthCheck
 } from '../hoc';
 
 const mapAlbumMethodsToProps = (libraryService) => {
   return { getData: libraryService.getAlbums };
 }
 
-const mapStateToProps = ({ pagingData }) => {
-  return { ...pagingData };
+const mapStateToProps = ({ pagingData, authData: {isAuthenticated} }) => {
+  return { ...pagingData, isAuthenticated };
 }
 
 const mapDispatchToProps = (dispatch, { libraryService }) => {
@@ -28,6 +29,7 @@ const AlbumPage = (props) => {
   const List = compose(
     withLibraryService(mapAlbumMethodsToProps),
     connect(mapStateToProps, mapDispatchToProps),
+    withAuthCheck(),
     withPagingData()
   )(ItemCardColumn);
   return (

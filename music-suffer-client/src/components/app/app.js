@@ -2,7 +2,14 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Header from '../header';
-import { AdminPage, AlbumPage, MainPage, AlbumDetails } from '../pages';
+import { 
+  AdminPage, 
+  AlbumPage, 
+  MainPage, 
+  AlbumDetails,
+  LoginPage,
+  SignupPage
+} from '../pages';
 import Spinner from '../spinner';
 
 const App = () => {
@@ -22,7 +29,9 @@ const App = () => {
         <Route path="/artists"
             component={Spinner} />
         <Route path="/login"
-            component={Spinner} />
+            component={LoginPage} />
+        <Route path="/signup"
+            component={SignupPage} />
         <Route path="/admin/management"
             component={AdminPage} />
         <Route render={() => <h2>404: Page not found</h2>} />

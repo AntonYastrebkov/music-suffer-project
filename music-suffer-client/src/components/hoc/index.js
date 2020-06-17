@@ -4,6 +4,7 @@ import withAuthService from './withAuthService';
 import withPagingData from './withPagingData';
 import withData from './withData';
 import compose from './compose';
+import withAuthCheck from './withAuthCheck';
 
 export {
   compose,
@@ -11,5 +12,6 @@ export {
   withLibraryService,
   withAdminService,
   withPagingData,
-  withData
+  withData,
+  withAuthCheck
 };

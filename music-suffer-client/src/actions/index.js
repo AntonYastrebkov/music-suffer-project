@@ -18,6 +18,26 @@ const contentFailed = (error) => {
   };
 };
 
+const loginRequested = () => {
+  return {
+    type: 'FETCH_LOGIN_REQUESTED'
+  };
+};
+
+const loginSuccess = (userData) => {
+  return {
+    type: 'FETCH_LOGIN_SUCCESS',
+    payload: userData
+  };
+};
+
+const loginFailed = (error) => {
+  return {
+    type: 'FETCH_LOGIN_FAILURE',
+    payload: error
+  };
+};
+
 const fetchAlbums = (libraryService) => (paging) => (dispatch) => {
   dispatch(contentRequested());
   libraryService.getAlbums(paging)
@@ -25,6 +45,14 @@ const fetchAlbums = (libraryService) => (paging) => (dispatch) => {
     .catch((error) => dispatch(contentFailed(error)));
 };
 
+const fetchLogin = (authService) => (loginData) => (dispatch) => {
+  dispatch(loginRequested());
+  authService.login(loginData)
+    .then((data) => dispatch(loginSuccess(data)))
+    .catch((error) => dispatch(loginFailed(error)));
+};
+
 export {
-  fetchAlbums
+  fetchAlbums,
+  fetchLogin
 };
