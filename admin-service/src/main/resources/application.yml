@@ -23,7 +23,7 @@ server:
 jwt:
   jwtSecretKey: secretKey
 upload:
-  path: /C:/Users/Munchausen/IdeaProjects/MusicSufferService/uploads
+  path: /C:/Users/Munchausen/IdeaProjects/MusicSufferService/images
 
 eureka:
   client:

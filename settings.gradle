@@ -5,4 +5,5 @@ include 'user-service'
 include 'library-service'
 include 'stream-service'
 include 'admin-service'
+include 'image-service'
 

@@ -3,6 +3,7 @@ package com.music.suffer.library.service.impl;
 import com.music.suffer.library.domain.entity.Album;
 import com.music.suffer.library.domain.entity.Artist;
 import com.music.suffer.library.domain.entity.MusicGenre;
+import com.music.suffer.library.domain.model.AlbumDTO;
 import com.music.suffer.library.repository.AlbumRepository;
 import com.music.suffer.library.repository.ArtistRepository;
 import com.music.suffer.library.service.LibraryService;
@@ -14,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -24,9 +24,27 @@ public class LibraryServiceImpl implements LibraryService {
     private final ArtistRepository artistRepository;
 
     @Override
-    public Album getAlbum(Long id) {
-        return albumRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException("Album with id " + id + " not found"));
+    public AlbumDTO getAlbum(Long id) {
+        Album album = albumRepository.findById(id)
+                .map(a -> {
+                    if (a.getIsDeleted()) {
+                        throw new EntityNotFoundException("Album with id " + id + " not found");
+                    } else {
+                        return a;
+                    }
+                })
+                .orElseThrow(() ->
+                    new EntityNotFoundException("Album with id " + id + " not found"));
+
+        return new AlbumDTO()
+                .setId(album.getId())
+                .setName(album.getName())
+                .setArtist(album.getArtist())
+                .setAverageScore(album.getAverageScore())
+                .setCompositions(album.getCompositions())
+                .setGenre(album.getGenre())
+                .setYear(album.getYear())
+                .setCoverPath(album.getCoverPath());
     }
 
     @Override

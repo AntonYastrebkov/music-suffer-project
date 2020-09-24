@@ -1,0 +1,21 @@
+---
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          url-expression: "'http://'+serviceId+':'+getPort()"
+          lower-case-service-id: true
+
+  eureka:
+    client:
+      serviceUrl:
+        defaultZone: http://localhost:8761/eureka
+
+api:
+  userHost: lb://user-service
+  libraryHost: lb://library-service
+  adminHost: lb://admin-service
+  stremingHost: lb://streaming-service
+  imageHost: lb://image-service

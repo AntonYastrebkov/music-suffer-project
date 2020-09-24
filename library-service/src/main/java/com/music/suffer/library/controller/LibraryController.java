@@ -3,6 +3,7 @@ package com.music.suffer.library.controller;
 import com.music.suffer.library.domain.entity.Album;
 import com.music.suffer.library.domain.entity.Artist;
 import com.music.suffer.library.domain.entity.MusicGenre;
+import com.music.suffer.library.domain.model.AlbumDTO;
 import com.music.suffer.library.service.LibraryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -31,7 +32,7 @@ public class LibraryController {
     }
 
     @GetMapping("/album/{id}")
-    public Album getAlbum(@PathVariable Long id) {
+    public AlbumDTO getAlbum(@PathVariable Long id) {
         return libraryService.getAlbum(id);
     }
 
@@ -41,11 +42,6 @@ public class LibraryController {
             @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 12) Pageable pageable
     ) {
         return libraryService.getArtistList(filter, pageable);
-    }
-
-    @GetMapping("/artist/{id}")
-    public Artist getArtist(@PathVariable Long id) {
-        return libraryService.getArtist(id);
     }
 
     @GetMapping("/genre")

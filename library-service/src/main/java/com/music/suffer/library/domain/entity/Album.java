@@ -39,6 +39,7 @@ public class Album {
     @ManyToOne(targetEntity = Artist.class)
     @JoinColumn(name = "artist_id")
     private Artist artist;
+    private Boolean isDeleted;
     @JsonIgnore
     @OneToMany(mappedBy = "album", fetch = FetchType.LAZY)
     private List<Comment> comments;

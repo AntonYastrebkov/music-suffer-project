@@ -38,11 +38,11 @@ public class CommentServiceImpl implements CommentService {
                 .getTokenData()
                 .getId();
         Comment commentToSave = new Comment()
-                .setText(commentDTO.getText())
+                .setContent(commentDTO.getText())
                 .setScore(commentDTO.getScore())
                 .setAuthorId(userId)
                 .setAlbum(album)
-                .setTime(LocalDateTime.now());
+                .setCreatedAt(LocalDateTime.now());
         evaluateAverageScore(album, commentDTO.getScore());
         return commentRepository.save(commentToSave);
     }
@@ -51,7 +51,7 @@ public class CommentServiceImpl implements CommentService {
     public Comment editComment(Long id, CommentDTO commentDTO) {
         Comment comment = commentRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException("Comment with id " + id + " not found"));
-        comment.setText(commentDTO.getText());
+        comment.setContent(commentDTO.getText());
         reevaluateAverageScore(comment.getAlbum(), comment.getScore(), commentDTO.getScore());
         comment.setScore(commentDTO.getScore());
 

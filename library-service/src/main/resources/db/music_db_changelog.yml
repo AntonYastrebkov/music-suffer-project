@@ -8,3 +8,12 @@ databaseChangeLog:
             path: ./sql/001_initial_schema.sql
             encoding: utf8
             relativeToChangelogFile: true
+  - changeSet:
+      runAlways: false
+      id: 2020_05_31_002
+      author: Anton Yastrebkov
+      changes:
+        - sqlFile:
+            path: ./sql/002_add_comments_table.sql
+            encoding: utf8
+            relativeToChangelogFile: true

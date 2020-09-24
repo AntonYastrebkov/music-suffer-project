@@ -1,7 +1,11 @@
 spring:
   application:
-    name: user-service
-
+    name: streaming-service
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
   datasource:
     url: jdbc:postgresql://localhost:5432/music_files_db
     username: postgres
@@ -13,5 +17,8 @@ spring:
     hibernate:
       ddl-auto: update
 
+server:
+  port: 8084
+
 file:
-  rootPath: /C:/Users/Munchausen/IdeaProjects/MusicSufferService/music_files
+  rootPath: /C:/Users/Munchausen/IdeaProjects/MusicSufferService/music
