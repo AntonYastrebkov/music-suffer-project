@@ -38,7 +38,7 @@ public class OAuthSecurityFilter implements GatewayFilter {
                 .getHomePageUrl();
         ResponseEntity<Boolean> validated = restTemplate
                 .exchange(userService + "/validate", HttpMethod.GET, entity, Boolean.class);
-        System.out.println(validated);
+
         if (validated.getBody() == null || !validated.getBody()) {
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();

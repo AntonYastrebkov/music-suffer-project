@@ -33,7 +33,6 @@ public class LoginController {
     @RequestMapping(method = RequestMethod.POST, value = "/login")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<AuthenticationToken> login(@RequestBody LoginRequest request) {
-        System.out.println(request);
         UsernamePasswordAuthenticationToken usernameToken = new UsernamePasswordAuthenticationToken(
                 request.getEmail(),
                 request.getPassword()

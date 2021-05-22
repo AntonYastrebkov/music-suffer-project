@@ -1,7 +1,7 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.2.4.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'org.springframework.boot' version '2.3.11.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
 group 'org.example'
@@ -24,7 +24,7 @@ configurations {
 }
 
 ext {
-    set('springCloudVersion', "Hoxton.SR1")
+    set('springCloudVersion', "Hoxton.SR11")
 }
 
 dependencyManagement {
@@ -38,14 +38,14 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.postgresql:postgresql:42.2.9'
+    implementation 'org.postgresql:postgresql:42.2.20'
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     implementation 'com.fasterxml.jackson.module:jackson-module-jaxb-annotations'
-    implementation 'com.vladmihalcea:hibernate-types-52:2.8.0'
-    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server:1.4.7.RELEASE'
+    implementation 'com.vladmihalcea:hibernate-types-52:2.11.1'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.2'
     implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.2'
-    compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.7'
+    compile group: 'org.modelmapper', name: 'modelmapper', version: '2.4.3'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'

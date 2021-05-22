@@ -18,7 +18,6 @@ public class TestController {
             HttpServletRequest request,
             @AuthenticationPrincipal Authentication auth
     ) {
-        System.out.println(auth);
         return ResponseEntity.ok(request.getHeader("Authorization"));
     }
 }
