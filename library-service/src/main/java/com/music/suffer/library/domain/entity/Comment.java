@@ -5,13 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,6 +14,8 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 public class Comment {
     @Id
+    @SequenceGenerator(name = "comment_id_generator", sequenceName = "comment_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_id_generator")
     private Long id;
     private Long authorId;
     @ManyToOne(fetch = FetchType.EAGER)
